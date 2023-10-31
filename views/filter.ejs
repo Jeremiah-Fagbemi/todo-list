@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+		<style>
+			main {
+				max-width: 60vw;
+				height: 80vh;
+				margin: 0 auto;
+			}
+			table {
+				margin: 0.2rem auto;
+			}
+			th,
+			td {
+				text-align: center;
+				border-bottom: 1px;
+			}
+			th {
+				margin-bottom: 0.2rem;
+			}
+			td {
+				padding: 0.2rem 1rem;
+			}
+			.div strong {
+				display: flex;
+				justify-content: start;
+				flex-direction: row;
+				width: 60vw;
+			}
+			div strong {
+				display: flex;
+				justify-content: end;
+			}
+		</style>
+	</head>
+	<body>
+		<header><%- include('./partials/header'); %></header>
+		<div><strong><%= new Date().toUTCString() %></strong></div>
+
+		<div class="div">
+			<form action="/views/filter" method="post" class="filter">
+				<label for="filter">
+					<select name="filter" id="filter">
+						<option value="All">All</option>
+						<option value="Pending">Pending</option>
+						<option value="completed">completed</option>
+					</select></label
+				>
+				<button type="submit" class="btn">Filter</button>
+			</form>
+		</div>
+
+		<main>
+			<table>
+				<tr>
+					<th style="width: 50%">Task</th>
+					<th style="width: 30%">Status</th>
+					<th style="width: 10%">Remove</th>
+				</tr>
+				<% tasks.forEach(function(task) { %>
+				<tr>
+					<td><%= task.Task %></td>
+					<td><%= task.Status %></td>
+					<!-- <td> -->
+					<!-- <%if(task.Status==='Pending'){%> -->
+					<!-- <form action="/views/change" method="post">
+							<input
+								type="radio"
+								name="checkbox"
+								value="<%= task._id%>"
+								onclick="this.form.submit()" />&nbsp
+						</form>
+						<% }else{%> -->
+					<!-- <form action="/views/unchange" method="post">
+							<%= task.Status %>
+							<input
+								type="radio"
+								name="checkbox"
+								checked
+								value="<%= task._id%>"
+								onclick="this.form.submit()" />
+						</form>
+						<%}%>
+					</td> -->
+					<td>
+						<form action="/views/delete" method="post">
+							<button
+								onclick="this.form.submit"
+								name="delete"
+								type="submit"
+								value="<%=task._id%>">
+								<i class="fa fa-trash"></i>
+							</button>
+						</form>
+					</td>
+				</tr>
+				<% }); %>
+			</table>
+		</main>
+	</body>
+</html>
